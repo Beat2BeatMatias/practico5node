@@ -6,9 +6,11 @@ var nrow= url.searchParams.get("nrow");
 var ncol= url.searchParams.get("ncol");
 var modo= url.searchParams.get("modo");
 
-var tbody = document.getElementById("tbody");
+var request = new XMLHttpRequest();
 
+var tbody = document.getElementById("tbody");
 var endPointSites;
+
 if (categoria != undefined) {
     console.log("entro 1")
     endPointSites = "https://api.mercadolibre.com/trends/" + pais + "/" + categoria;
@@ -16,34 +18,39 @@ if (categoria != undefined) {
     console.log("entro 2",pais)
     endPointSites = "https://api.mercadolibre.com/trends/" + pais;
 }
-var request = new XMLHttpRequest();
-request.open('GET', endPointSites, true);
-//request.setRequestHeader("Access-Control-Allow-Origin", "*");
-request.onload = function () {
-  // Begin accessing JSON data here
-  data = JSON.parse(this.response);
-  if (request.status >= 200 && request.status < 400 && data != null) {
-      var k=0;
-      for(var i=0;i<nrow;i++){
-          var r=document.createElement("tr");
-          for(var j=0;j<ncol;j++){
-            var d=document.createElement("td");
-            d.style.textAlign="center";
-            var dataDesordenada = shuffle(data);
-            var nombre=dataDesordenada[k].keyword.toUpperCase();
-            d.innerHTML=nombre;
-            r.appendChild(d);
-            k++;
-          }
-          tbody.appendChild(r);
-      }    
-  } else {
-      var errorMessage = document.createElement("p");
-      errorMessage.textContent = "No funciona!";
-      document.getElementById("container").appendChild(errorMessage);
-  }
+
+
+
+if (modo == "nombre") {
+    request = new XMLHttpRequest();
+    request.open('GET', endPointSites, true);
+    request.onload = function () {
+        // Begin accessing JSON data here
+        var data = JSON.parse(this.response);
+        if (request.status >= 200 && request.status < 400 && data != null) {
+            var k = 0;
+            for (var i = 0; i < nrow; i++) {
+                var r = document.createElement("tr");
+                for (var j = 0; j < ncol; j++) {
+                    var d = document.createElement("td");
+                    d.style.textAlign = "center";
+                    var dataDesordenada = shuffle(data);
+                    var nombre = dataDesordenada[k].keyword.toUpperCase();
+                    d.innerHTML = nombre;
+
+                    r.appendChild(d);
+                    k++;
+                }
+                tbody.appendChild(r);
+            }
+        } else {
+            var errorMessage = document.createElement("p");
+            errorMessage.textContent = "No funciona!";
+            document.getElementById("container").appendChild(errorMessage);
+        }
+    }
+    request.send();
 }
-request.send();
 
 function shuffle(array) {
 
