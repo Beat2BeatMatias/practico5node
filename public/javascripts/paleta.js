@@ -33,12 +33,15 @@ if (modo == "nombre") {
                 var r = document.createElement("tr");
                 for (var j = 0; j < ncol; j++) {
                     var d = document.createElement("td");
+                    var img = document.createElement("img");
+                    var br = document.createElement("br");
                     d.style.textAlign = "center";
                     var dataDesordenada = shuffle(data);
                     var nombre = dataDesordenada[k].keyword.toUpperCase();
                     d.innerHTML = nombre;
-                    //getUrlItem(pais, nombre);
+                    img.src = getUrlItem(pais, nombre);
                     r.appendChild(d);
+                    r.appendChild(img);
                     k++;
                 }
                 tbody.appendChild(r);
@@ -48,20 +51,26 @@ if (modo == "nombre") {
             errorMessage.textContent = "No funciona!";
             document.getElementById("container").appendChild(errorMessage);
         }
+        document.getElementById("spinner").remove();
     }
     request.send();
 }
 
-// function getUrlItem(siteId, query) {
-//     var url= "https://api.mercadolibre.com/sites/"+ siteId + "/search?q=auto";
-//     request.open('GET', url, false);
-//     request.send();
-//     request.onload = function () {
-//         // Begin accessing JSON data here
-//         var data = JSON.parse(this.response);
-//         console.log(data)
-//     }
-// }
+function getUrlItem(siteId, query) {
+    var url= "https://api.mercadolibre.com/sites/"+ siteId + "/search?q=" + query;
+    var imagen="";
+    request.open('GET', url, false);
+    request.onload = function () {
+        // Begin accessing JSON data here
+        var data = JSON.parse(this.response);
+        if (request.status >= 200 && request.status < 400 && data != null) {
+                imagen = data.results[0].thumbnail;
+
+        }
+    }
+    request.send();
+    return imagen;
+}
 
 function shuffle(array) {
 

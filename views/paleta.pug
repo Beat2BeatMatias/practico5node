@@ -12,9 +12,11 @@ html(lang='en')
       p {
       margin: 10px;
       }
-  body(style='margin: 5%')
+  body(style='margin: 5%; align:center')
     img(src='/images/logo.png')
-    #container
+    #container(style='align-items: center; justify-content: center')
+      #spinner.spinner-border(style='align : center' role='status')
+        span.sr-only Loading...
       table.table.table-bordered
         tbody#tbody
     script(src='/javascripts/paleta.js')
