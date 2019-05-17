@@ -37,7 +37,7 @@ if (modo == "nombre") {
                     var dataDesordenada = shuffle(data);
                     var nombre = dataDesordenada[k].keyword.toUpperCase();
                     d.innerHTML = nombre;
-
+                    //getUrlItem(pais, nombre);
                     r.appendChild(d);
                     k++;
                 }
@@ -51,6 +51,17 @@ if (modo == "nombre") {
     }
     request.send();
 }
+
+// function getUrlItem(siteId, query) {
+//     var url= "https://api.mercadolibre.com/sites/"+ siteId + "/search?q=auto";
+//     request.open('GET', url, false);
+//     request.send();
+//     request.onload = function () {
+//         // Begin accessing JSON data here
+//         var data = JSON.parse(this.response);
+//         console.log(data)
+//     }
+// }
 
 function shuffle(array) {
 
