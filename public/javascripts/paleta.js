@@ -16,22 +16,23 @@ request.open('GET', endPointSites, true);
 request.onload = function () {
   // Begin accessing JSON data here
   data = JSON.parse(this.response);
-  if (request.status >= 200 && request.status < 400) {
+  if (request.status >= 200 && request.status < 400 && data != null) {
       var k=0;
       for(var i=0;i<nrow;i++){
           var r=document.createElement("tr");
           for(var j=0;j<ncol;j++){
             var d=document.createElement("td");
-            d.innerHTML=data[k].keyword;
+            var nombre=data[k].keyword.toUpperCase();
+            d.innerHTML=nombre;
             r.appendChild(d);
             k++;
           }
           tbody.appendChild(r);
       }    
   } else {
-    const errorMessage = document.createElement('marquee');
-    errorMessage.textContent = "No funciona!";
-    document.getElementsByTagName("body").appendChild(errorMessage);
+      var errorMessage = document.createElement("p");
+      errorMessage.textContent = "No funciona!";
+      document.getElementById("container").appendChild(errorMessage);
   }
 }
 request.send();

@@ -4,12 +4,14 @@ var catId;
 var pais=document.getElementById("s_pais");
 var categoria=document.getElementById("s_categoria");
 var modo=document.getElementById("s_modo");
-var filas=document.getElementById("filas");
-var col=document.getElementById("columnas");
+var filas=document.getElementById("s_fila");
+var col=document.getElementById("s_col");
+
 function envio(){
     window.location.assign("trends/visualize?pais=" + siteId + "&" + "categoria=" +
     catId + "&" + "nrow=" + filas.value + "&" + "ncol=" + col.value + "&" + "modo=" + modo.value);
 }
+
 function seleccionSitio(){  
     data.forEach(sites => {
         if (pais.options[pais.selectedIndex].innerHTML == sites.name){
@@ -31,9 +33,9 @@ function seleccionSitio(){
         categoria.appendChild(opt);
         });    
   } else {
-    const errorMessage = document.createElement('marquee');
-    errorMessage.textContent = "No funciona!";
-    document.getElementsByTagName("body").appendChild(errorMessage);
+        var errorMessage = document.createElement("p");
+        errorMessage.textContent = "No funciona!";
+        document.getElementsByTagName("body").appendChild(errorMessage);
   }
 }
 request.send();

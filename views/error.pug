@@ -4,3 +4,13 @@ block content
   h1= message
   h2= error.status
   pre #{error.stack}
+
+
+label Filas:
+    br
+    input#filas.form-control(type='number', min='3', max='5', value='2')
+    br
+    label Columnas:
+    br
+    input#columnas.form-control(type='number', min='3', max='5', value='2')
+    br
