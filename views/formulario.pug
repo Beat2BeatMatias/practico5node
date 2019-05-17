@@ -14,10 +14,10 @@ html(lang='en')
       }
   body(style='padding: 10%')
     img(src='/images/logo.png')
-    select#s_pais.custom-select(onchange='seleccionSitio()')
-      option(selected='') Elija un pais
-    select#s_categoria.custom-select(onchange='seleccionCategoria()')
-      option(selected='') Elija una categoria
+    select#s_pais.custom-select(onchange='seleccionSitio(this)')
+      option(selected='' value='ninguno') Elija un pais
+    select#s_categoria.custom-select(onchange='seleccionCategoria(this)')
+      option(selected='' value='ninguno') Elija o no una categoria
     br
     p Eliga un modo:
     select#s_modo.custom-select

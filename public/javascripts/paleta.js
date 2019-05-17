@@ -8,8 +8,14 @@ var modo= url.searchParams.get("modo");
 
 var tbody = document.getElementById("tbody");
 
-console.log(pais);
-var endPointSites = "https://api.mercadolibre.com/trends/" + pais + "/" + categoria;
+var endPointSites;
+if (categoria != undefined) {
+    console.log("entro 1")
+    endPointSites = "https://api.mercadolibre.com/trends/" + pais + "/" + categoria;
+}else{
+    console.log("entro 2",pais)
+    endPointSites = "https://api.mercadolibre.com/trends/" + pais;
+}
 var request = new XMLHttpRequest();
 request.open('GET', endPointSites, true);
 //request.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -22,7 +28,8 @@ request.onload = function () {
           var r=document.createElement("tr");
           for(var j=0;j<ncol;j++){
             var d=document.createElement("td");
-            var nombre=data[k].keyword.toUpperCase();
+            var dataDesordenada = shuffle(data);
+            var nombre=dataDesordenada[k].keyword.toUpperCase();
             d.innerHTML=nombre;
             r.appendChild(d);
             k++;
@@ -36,3 +43,23 @@ request.onload = function () {
   }
 }
 request.send();
+
+function shuffle(array) {
+
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
