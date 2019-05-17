@@ -46,7 +46,7 @@ function seleccionSitio(sitio){
             categoria.appendChild(opt);
             });
       } else {
-           createError()
+           createError("No se puede establecer la conexión a la api")
       }
     }
     request.send();
@@ -55,29 +55,32 @@ function seleccionCategoria(categoria){
     console.log(categoria.value);
     catId = categoria.value;
 }
-siteId = pais.value;
-catId = categoria.value;
-console.log(catId);
 var endPointSites = "https://api.mercadolibre.com/sites";
 var request = new XMLHttpRequest();
-request.open('GET', endPointSites, true);
-//request.setRequestHeader("Access-Control-Allow-Origin", "*");
-request.onload = function () {
-      // Begin accessing JSON data here
-    data = JSON.parse(this.response);
-    if (request.status >= 200 && request.status < 400) {
-    data.forEach(sites => {
-      var opt=document.createElement("option");
-      opt.value=sites.id;
-      opt.innerHTML=sites.name;
-      pais.appendChild(opt);
-    });
 
-    } else {
-        createError()
+window.onload=function () {
+    siteId = pais.value;
+    catId = categoria.value;
+    console.log(catId);
+    request.open('GET', endPointSites, true);
+    //request.setRequestHeader("Access-Control-Allow-Origin", "*");
+    request.onload = function () {
+          // Begin accessing JSON data here
+        data = JSON.parse(this.response);
+        if (request.status >= 200 && request.status < 400) {
+        data.forEach(sites => {
+          var opt=document.createElement("option");
+          opt.value=sites.id;
+          opt.innerHTML=sites.name;
+          pais.appendChild(opt);
+        });
+
+        } else {
+            createError("No se puede establecer la conexión a la api")
+        }
     }
+    request.send();
 }
 function createError(mensaje){
     alert(mensaje)
 }
-request.send();

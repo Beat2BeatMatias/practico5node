@@ -28,6 +28,7 @@ request.onload = function () {
           var r=document.createElement("tr");
           for(var j=0;j<ncol;j++){
             var d=document.createElement("td");
+            d.style.textAlign="center";
             var dataDesordenada = shuffle(data);
             var nombre=dataDesordenada[k].keyword.toUpperCase();
             d.innerHTML=nombre;
